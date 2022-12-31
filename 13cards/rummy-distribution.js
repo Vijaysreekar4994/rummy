@@ -5,10 +5,10 @@ let diamond = [];
 let jocker = ['☆'];
 
 for (let i=1;i<=13;i++){
-    club.push(i+'♣');
-    heart.push(i+'♥');
-    spade.push(i+'♠');
-    diamond.push(i+'♦');
+    club.push(i+'♣'); // club '♣'
+    heart.push(i+'♥'); // heart '♥'
+    spade.push(i+'♠'); // spade symbol '♠'
+    diamond.push(i+'♦'); // diamond '♦'
 }
 let set = club.concat(heart,spade,diamond,jocker);
 
