@@ -1,37 +1,115 @@
 .card {
     border: 2px solid gray;
     border-radius: 15px;
+    height: 80px;
+    width: 50px;
+    background-color: rgb(255, 216, 177);
+    margin: 2px;
     /* height: 150px;
     width: 100px; */
-    height: 80px;
+    /* padding: 5px; */
+}
+
+.discardButton {
+    border: 2px solid gray;
+    border-radius: 15px;
+    /* height: 150px;
+    width: 100px; */
+    height: 30px;
     width: 50px;
     background-color: rgb(255, 216, 177);
     /* padding: 5px; */
     margin: 2px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.playerCardContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 .cardSetContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    /* margin-top: 25px; */
+}
+
+.pickFromAllCardsButton {
+    border: 2px solid red;
+    border-radius: 15px;
+    height: 80px;
+    width: 50px;
+    background-color: rgb(255, 255, 255);
+    margin: 2px;
+    cursor: pointer;
+}
+
+.jockerContainer {
+    /* display: flex; */
+    width: fit-content;
+    background-color: rgb(52, 55, 231);
+    border-radius: 15px;
+    padding: 15px;
+    border: 2px solid gray;
+    margin-right: 10px;
+}
+
+.openCardsContainer {
+    /* background-color: rgb(84, 79, 100); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px;
+    border: 2px solid gray;
+    border-radius: 15px;
 }
 
 .playerAContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 50px;
-    background-color: rgb(180, 230, 230);
+    /* margin-top: 50px; */
+    /* background-color: rgb(180, 230, 230); */
     border-radius: 15px;
     padding: 15px;
+    margin: 15px;
 }
 
 .playerBContainer {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 50px;
-    background-color: rgb(228, 198, 146);
+    /* margin-top: 50px; */
+    /* background-color: rgb(228, 198, 146); */
+    border-radius: 15px;
+    padding: 15px;
+    margin: 15px;
+}
+
+.serveButton {
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+    color: #34346d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 4px 2px;
+}
+.serveButton:hover {
+    background-color: #34346d;
+    color: white;
+}
+
+.buttonsContainer {
+    display: flex;
+    /* background-color: rgb(88, 83, 83); */
     border-radius: 15px;
     padding: 15px;
 }

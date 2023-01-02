@@ -1,9 +1,9 @@
 .board {
-    width: 50vw;
+    width: 90vw;
     /* height: 80vh; */
     background-color: rgba(104, 101, 148, 0.607);
     border-radius: 10px;
-    margin-top: 100px;
+    margin-top: 10px;
     padding: 50px;
 }
 
