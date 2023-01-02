@@ -11,21 +11,25 @@ export const Cards = () => {
     const [openCards, setOpenCards] = useState([]);
 
     const focusPlayer = { boxShadow: '2px 2px 2px 2px black', backgroundColor: 'white' };
-
+    const club = '\u2667';// club '♣' add 3 in the end for filled club
+    const heart = '\u2661';// heart '♥' 5
+    const spade = '\u2664';// spade symbol '♠' 0
+    const diamond = '\u2662'; // diamond '♦' 6
     function generate53cardsSet() {
-        let club = [];
-        let heart = [];
-        let spade = [];
-        let diamond = [];
-        let jocker = ['☆'];
+        let clubs = [`A${club}`, `J${club}`, `Q${club}`, `K${club}`];
+        let hearts = [`A${heart}`, `J${heart}`, `Q${heart}`, `K${heart}`];
+        let spades = [`A${spade}`, `J${spade}`, `Q${spade}`, `K${spade}`];
+        let diamonds = [`A${diamond}`, `J${diamond}`, `Q${diamond}`, `K${diamond}`];
+        let jocker = ['\u2605']; // add 6 in the end for filled club
 
-        for (let i = 1; i <= 13; i++) {
-            club.push(i + '\u2667'); // club '♣' add 3 in the end for filled club
-            heart.push(i + '\u2661'); // heart '♥' 5
-            spade.push(i + '\u2664'); // spade symbol '♠' 0
-            diamond.push(i + '\u2662'); // diamond '♦' 6
+        for (let i = 2; i <= 10; i++) {
+            clubs.push(i + club);
+            hearts.push(i + heart);
+            spades.push(i + spade);
+            diamonds.push(i + diamond);
         }
-        let newSet53 = club.concat(heart, spade, diamond, jocker);
+        let newSet53 = clubs.concat(hearts, spades, diamonds, jocker);
+        console.log(newSet53);
         let shuffledSet = handleShuffle(newSet53)
         setCardSet53(shuffledSet);
     };
@@ -137,7 +141,7 @@ export const Cards = () => {
                 {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => handlePickFromOpenCards()}>
                     <h2>Pick</h2>
                 </div>}
-            </div>:(currentPlayer && <div className='openCardsContainerHiddenView'><div className='card'></div></div>)}
+            </div> : (currentPlayer && <div className='openCardsContainerHiddenView'><div className='card'></div></div>)}
             {/* CARDS SERVING BUTTONS VIEW */}
             {playerASet.length === 0 && <div className='buttonsContainer'>
                 <button className='serveButton' onClick={() => handleDistribution(cardSet53, 'B')}>Serve cards by player A</button>
