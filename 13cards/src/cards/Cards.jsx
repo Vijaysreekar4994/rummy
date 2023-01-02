@@ -6,30 +6,11 @@ export const Cards = () => {
     const [playerASet, setPlayerASet] = useState([]);
     const [playerBSet, setPlayerBSet] = useState([]);
     const [jocker, setJocker] = useState('');
-    const [pickFromAllCards, setPickFromAllCards] = useState(null);
-    const [pickFromOpenCards, setPickFromOpenCards] = useState(null);
     const [currentPlayer, setCurrentPlayer] = useState('');
-    // const [activePlayer, setActivePlayer] = useState(null);
     const [picked, setPicked] = useState();
     const [openCards, setOpenCards] = useState([]);
 
     const focusPlayer = { boxShadow: '2px 2px 2px 2px black', backgroundColor: 'white' };
-    // const initialState = [
-    //     { id: 1, country: 'Austria' },
-    //     { id: 2, country: 'Belgium' },
-    //     { id: 3, country: 'Canada' },
-    // ];
-    // const [data, setData] = useState(initialState);
-
-    // function updateState(){
-    //     setData(
-    //         [
-    //             ...data,
-    //             {id: 4, country: 'India'}
-    //         ]
-    //     )
-    // }
-    // console.log(data);
 
     function generate53cardsSet() {
         let club = [];
@@ -39,10 +20,10 @@ export const Cards = () => {
         let jocker = ['☆'];
 
         for (let i = 1; i <= 13; i++) {
-            club.push(i + '♣'); // club '♣'
-            heart.push(i + '♥'); // heart '♥'
-            spade.push(i + '♠'); // spade symbol '♠'
-            diamond.push(i + '♦'); // diamond '♦'
+            club.push(i + '\u2667'); // club '♣' add 3 in the end for filled club
+            heart.push(i + '\u2661'); // heart '♥' 5
+            spade.push(i + '\u2664'); // spade symbol '♠' 0
+            diamond.push(i + '\u2662'); // diamond '♦' 6
         }
         let newSet53 = club.concat(heart, spade, diamond, jocker);
         let shuffledSet = handleShuffle(newSet53)
@@ -138,19 +119,16 @@ export const Cards = () => {
                     <h2>Pick</h2>
                 </div>}
             </div>
-            {/* <div style={{  }}> */}
             {/* JOCKER VIEW */}
             {currentPlayer && <h2>Jocker</h2>}
             {jocker && <div className='jockerContainer'>
                 <div className='card'>
                     <h2>{jocker}</h2>
-                    {/* <p>{card}</p> */}
                 </div>
             </div>}
             {currentPlayer && <h2>Open cards</h2>}
             {/* OPEN CARDS VIEW */}
             {openCards.length !== 0 ? <div className='openCardsContainer'>
-                {/* <div className='card' /> */}
                 {openCards.map((card, id) => {
                     return <div className='card' key={id}>
                         <h2>{card}</h2>
@@ -160,7 +138,6 @@ export const Cards = () => {
                     <h2>Pick</h2>
                 </div>}
             </div>:(currentPlayer && <div className='openCardsContainerHiddenView'><div className='card'></div></div>)}
-            {/* </div> */}
             {/* CARDS SERVING BUTTONS VIEW */}
             {playerASet.length === 0 && <div className='buttonsContainer'>
                 <button className='serveButton' onClick={() => handleDistribution(cardSet53, 'B')}>Serve cards by player A</button>
@@ -179,7 +156,6 @@ export const Cards = () => {
                     {playerASet.map((card, id) => {
                         return <>
                             <div className='playerCardContainer' key={id}>
-                            {/* <div className='discardButtonHiddenView' /> */}
                                 <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
@@ -194,7 +170,6 @@ export const Cards = () => {
                     {playerBSet.map((card, id) => {
                         return <>
                             <div className='playerCardContainer' key={id}>
-                                {/* <div className='discardButtonHiddenView' /> */}
                                 <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
