@@ -149,7 +149,7 @@ export const Cards = () => {
             </div>}
             {currentPlayer && <h2>Open cards</h2>}
             {/* OPEN CARDS VIEW */}
-            {openCards.length !== 0 && <div className='openCardsContainer'>
+            {openCards.length !== 0 ? <div className='openCardsContainer'>
                 {/* <div className='card' /> */}
                 {openCards.map((card, id) => {
                     return <div className='card' key={id}>
@@ -159,7 +159,7 @@ export const Cards = () => {
                 {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => handlePickFromOpenCards()}>
                     <h2>Pick</h2>
                 </div>}
-            </div>}
+            </div>:(currentPlayer && <div className='openCardsContainerHiddenView'><div className='card'></div></div>)}
             {/* </div> */}
             {/* CARDS SERVING BUTTONS VIEW */}
             {playerASet.length === 0 && <div className='buttonsContainer'>
@@ -178,13 +178,14 @@ export const Cards = () => {
                 <div className='playerAContainer' style={currentPlayer === 'A' ? focusPlayer : {}}>
                     {playerASet.map((card, id) => {
                         return <>
-                            <div className='playerCardContainer'>
-                                {(currentPlayer === 'A' && picked) && <button className='discardButton' key={id} onClick={() => handleDiscard(card)}>
-                                    {'Discard'}{card}
-                                </button>}
-                                <button className='card' key={id}>
+                            <div className='playerCardContainer' key={id}>
+                            {/* <div className='discardButtonHiddenView' /> */}
+                                <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
+                                {(currentPlayer === 'A' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
+                                    {'Discard'}
+                                </button>}
                             </div>
                         </>
                     })}
@@ -192,13 +193,14 @@ export const Cards = () => {
                 <div className='playerBContainer' style={currentPlayer === 'B' ? focusPlayer : {}}>
                     {playerBSet.map((card, id) => {
                         return <>
-                            <div className='playerCardContainer'>
-                                {(currentPlayer === 'B' && picked) && <button className='discardButton' key={id} onClick={() => handleDiscard(card)}>
-                                    {'Discard'}{card}
-                                </button>}
-                                <button className='card' key={id}>
+                            <div className='playerCardContainer' key={id}>
+                                {/* <div className='discardButtonHiddenView' /> */}
+                                <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
+                                {(currentPlayer === 'B' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
+                                    {'Discard'}
+                                </button>}
                             </div>
                         </>
                     })}

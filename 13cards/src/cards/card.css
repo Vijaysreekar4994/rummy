@@ -25,7 +25,13 @@
     cursor: pointer;
 }
 
-.playerCardContainer{
+.discardButtonHiddenView {
+    height: 30px;
+    width: 50px;
+    margin: 2px;
+}
+
+.playerCardContainer {
     display: flex;
     flex-direction: column;
 }
@@ -67,6 +73,13 @@
     border-radius: 15px;
 }
 
+.openCardsContainerHiddenView {
+    display: flex;
+    border: 2px solid gray;
+    border-radius: 15px;
+    padding: 15px;
+}
+
 .playerAContainer {
     display: flex;
     flex-direction: row;
@@ -102,6 +115,7 @@
     font-size: 20px;
     margin: 4px 2px;
 }
+
 .serveButton:hover {
     background-color: #34346d;
     color: white;
