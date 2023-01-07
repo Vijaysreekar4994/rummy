@@ -1,0 +1,27 @@
+.pickAvatarAllCardsView{
+    position: absolute;
+    top: 0;
+    background-color: rgba(161, 202, 205, 0.237);
+    border-radius: 10px;
+    width: 239px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+    
+}
+.pickAvatarAllCardsButton{
+    color: rgb(255, 255, 255);
+    font-size: 80px;
+    font-family: 'Courier New', Courier, monospace;  
+    filter: drop-shadow(0 3mm 2mm rgb(0, 0, 0));
+    font-weight: bold;
+}
+
+.pickAvatarAllCardsView:hover{
+    filter: drop-shadow(2mm 5mm 3mm rgb(0, 0, 0));
+    /* border: 1px solid white; */
+    transform: translateY(5px);
+    background-color: rgba(43, 49, 49, 0.188);
+}

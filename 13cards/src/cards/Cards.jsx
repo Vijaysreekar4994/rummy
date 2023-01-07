@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './card.css'
+import { CardsAvatar } from '../components/cardSet/CardsAvatar';
 
 export const Cards = () => {
     const [cardSet53, setCardSet53] = useState([]);
@@ -112,6 +113,14 @@ export const Cards = () => {
     }, []);
     return (
         <>
+            {/* JOCKER AND CARDS AVTAR */}
+            {/* <CardsAvatar
+                buttonName='Pick'
+                pickFunction={handlePickFromAllCards}
+                jocker={jocker}
+                currentPlayer={currentPlayer}
+                picked={picked}
+            /> */}
             {/* ALL REMAINING CARDS VIEW */}
             <div className='cardSetContainer'>
                 {cardSet53.map((card, id) => {
@@ -148,9 +157,9 @@ export const Cards = () => {
                 <button className='serveButton' onClick={() => handleDistribution(cardSet53, 'A')}>Serve cards by player B</button>
             </div>}
             {/* PLAYERS VIEW */}
-            {playerASet.length !== 0 && <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {/* {playerASet.length !== 0 && <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <h2 className='playerBContainer'>It's Player {currentPlayer} turn !</h2>
-            </div>}
+            </div>} */}
             {playerASet.length !== 0 && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <h2 className='playerAContainer'>Player A</h2>
                 <h2 className='playerBContainer'>Player B</h2>
