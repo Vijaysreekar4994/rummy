@@ -97,4 +97,6 @@
     margin: 0 5px 0 5px;
 }
 
-.test {}
+.middleSpace {
+    width: 40px;
+}
