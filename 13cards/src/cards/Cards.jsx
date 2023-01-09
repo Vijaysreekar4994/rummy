@@ -9,6 +9,7 @@ export const Cards = () => {
     const [jocker, setJocker] = useState('');
     const [currentPlayer, setCurrentPlayer] = useState('');
     const [picked, setPicked] = useState();
+    const [selectedCards, setSelectedCards] = useState([]);
     const [openCards, setOpenCards] = useState([]);
 
     const focusPlayer = { boxShadow: '2px 2px 2px 2px black', backgroundColor: 'white' };
@@ -30,7 +31,7 @@ export const Cards = () => {
             diamonds.push(i + diamond);
         }
         let newSet53 = clubs.concat(hearts, spades, diamonds, jocker);
-        console.log(newSet53);
+        // console.log(newSet53);
         let shuffledSet = handleShuffle(newSet53)
         setCardSet53(shuffledSet);
     };
@@ -108,6 +109,26 @@ export const Cards = () => {
         }
     };
 
+    function handleInput(target, card) {
+        if (target) {
+            setSelectedCards(
+                [
+                    ...selectedCards,
+                    card
+                ]
+            );
+        } else {
+            let a = selectedCards.filter(e => e !== card);
+            setSelectedCards(a);
+        }
+    };
+
+    function handleGroupSubset() {
+        setSelectedCards([]);
+        document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+    };
+    console.log('selectedCards : ', selectedCards)
+
     useEffect(() => {
         generate53cardsSet();
     }, []);
@@ -169,6 +190,10 @@ export const Cards = () => {
                     {playerASet.map((card, id) => {
                         return <>
                             <div className='playerCardContainer' key={id}>
+                                <label className="container">
+                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleInput(e.target.checked, card)} />
+                                    <span className="checkmark" />
+                                </label>
                                 <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
@@ -183,6 +208,10 @@ export const Cards = () => {
                     {playerBSet.map((card, id) => {
                         return <>
                             <div className='playerCardContainer' key={id}>
+                                <label className="container">
+                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleInput(e.target.checked, card)} />
+                                    <span className="checkmark" />
+                                </label>
                                 <button className='card'>
                                     <h2>{card}</h2>
                                 </button>
@@ -194,6 +223,7 @@ export const Cards = () => {
                     })}
                 </div>
             </div>}
+            <button onClick={() => handleGroupSubset()}>Clear selection</button>
         </>
     )
 };
