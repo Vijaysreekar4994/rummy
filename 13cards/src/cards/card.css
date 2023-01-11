@@ -63,21 +63,33 @@
     margin-right: 10px;
 }
 
+.openCardsContainerView {
+    display: flex;
+    /* flex-direction: column; */
+    
+}
+
 .openCardsContainer {
     /* background-color: rgb(84, 79, 100); */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     padding: 15px;
-    border: 2px solid gray;
+    border: 5px solid rgb(205, 205, 205);
     border-radius: 15px;
+    width: 239px;
+    height: 150px;
+    margin-top: 60px;
 }
 
 .openCardsContainerHiddenView {
     display: flex;
-    border: 2px solid gray;
+    border: 5px solid rgb(205, 205, 205);
     border-radius: 15px;
     padding: 15px;
+    width: 239px;
+    height: 150px;
+    margin-top: 60px;
 }
 
 .playerAContainer {
@@ -102,7 +114,7 @@
     margin: 15px;
 }
 
-.serveButton {
+.button {
     border: 2px solid black;
     border-radius: 10px;
     background-color: white;
@@ -116,16 +128,25 @@
     margin: 4px 2px;
 }
 
-.serveButton:hover {
+.button:hover {
     background-color: #34346d;
     color: white;
 }
+
 
 .buttonsContainer {
     display: flex;
     /* background-color: rgb(88, 83, 83); */
     border-radius: 15px;
     padding: 15px;
+    /* align-self: center; */
+    flex-direction: column;
+    justify-content: center;
+}
+
+.viewTitle {
+    color:white;
+    text-align: center;
 }
 
 .inputSelected {
@@ -138,7 +159,7 @@
 
 .container {
     display: block;
-    position: relative;
+    position: absolute;
     padding-left: 35px;
     /* margin-bottom: 12px; */
     cursor: pointer;
@@ -209,3 +230,18 @@
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 } */
+
+.openDeckView {
+    position: absolute;
+    top: 80px;
+    background-color: rgb(205, 205, 205);
+    line-height: 5px;
+    /* border-radius: 15px; */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding-inline: 15px;
+}
+
+.middleSpace {
+    width: 40px;
+}

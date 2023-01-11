@@ -17,6 +17,7 @@
     font-family: 'Courier New', Courier, monospace;  
     filter: drop-shadow(0 3mm 2mm rgb(0, 0, 0));
     font-weight: bold;
+    cursor: pointer;
 }
 
 .pickAvatarAllCardsView:hover{
@@ -24,4 +25,60 @@
     /* border: 1px solid white; */
     transform: translateY(5px);
     background-color: rgba(43, 49, 49, 0.188);
+}
+
+
+.jockerAndAllCardsView {
+    display: flex;
+    /* background-color: bisque; */
+    width: 50%;
+    justify-content: center;
+}
+
+.jockerView {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 15px;
+    height: 250px;
+    width: 150px;
+    background-color: rgb(255, 255, 255);
+    font-size: 35px;
+    padding: 0px 0px 0px 5px;
+}
+
+.allCardsView {
+    /* cursor: pointer; */
+    position: absolute;
+    margin-top: 100px;
+    width: 250px;
+    height: 150px;
+    background-color: var(--cardClose);
+    border-radius: 10px;
+    border: 1px solid var(--cardCloseBorder);
+    box-shadow: 0px -05px 0px 0px var(--cardClose),
+        0px -06px 0px 0px var(--cardCloseBorder),
+        0px -10px 0px 0px var(--cardClose),
+        0px -11px 0px 0px var(--cardCloseBorder),
+        0px -15px 0px 0px var(--cardClose),
+        0px -16px 0px 0px var(--cardCloseBorder),
+        0px -20px 0px 0px var(--cardClose),
+        0px -21px 0px 0px var(--cardCloseBorder),
+        0px -25px 0px 0px var(--cardClose),
+        0px -26px 0px 0px var(--cardCloseBorder),
+        0px -30px 0px 0px var(--cardClose),
+        0px -31px 0px 0px var(--cardCloseBorder),
+        0px -35px 0px 0px var(--cardClose),
+        0px -36px 0px 0px var(--cardCloseBorder),
+        0px -40px 0px 0px var(--cardClose),
+        0px -41px 0px 0px var(--cardCloseBorder),
+        0px -45px 0px 0px var(--cardClose),
+        0px -46px 0px 0px var(--cardCloseBorder);
+}
+
+.cardDesign {
+    word-wrap: break-word;
+    color: #ffffff;
+    width: 250px;
+    height: 150px;
+    overflow: hidden;
+    margin: 0 5px 0 5px;
 }
