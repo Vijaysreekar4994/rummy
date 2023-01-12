@@ -5,6 +5,14 @@
   /* flex-direction: column; */
 }
 
+.mainTitle{
+  /* font-family: 'Courier New', Courier, monospace; */
+  position: absolute;
+  top: 15px;
+  left: 150px;
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+}
 /* 
 .App-header {
   background-color: #282c34;

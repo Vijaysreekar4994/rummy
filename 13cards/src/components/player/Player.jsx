@@ -1,67 +1,68 @@
-import './player.css'
-
-export const Player = (props) => {
-    const focusPlayer = { boxShadow: '2px 2px 2px 2px black', backgroundColor: 'white' };
-    const [picked, currentPlayer, player, playerSet, selectedCards, setSelectedCards] = props;
-
-    // function handleSelect(target, card) {
-    //     if (target) {
-    //         setSelectedCards(
-    //             [
-    //                 ...selectedCards,
-    //                 card
-    //             ]
-    //         );
-    //     } else {
-    //         let a = selectedCards.filter(e => e !== card);
-    //         setSelectedCards(a);
-    //     }
-    // };
-
-    // function handleDiscard(discarded) {
-    //     if (currentPlayer === 'A') {
-    //         let filteredPlayerACards = playerASet.filter(card => card !== discarded);
-    //         setPlayerASet(filteredPlayerACards);
-    //         setPicked(false);
-    //         setCurrentPlayer('B')
-    //         setOpenCards([discarded]);
-    //     }
-    //     if (currentPlayer === 'B') {
-    //         let filteredPlayerBCards = playerBSet.filter(card => card !== discarded);
-    //         setPlayerBSet(filteredPlayerBCards);
-    //         setPicked(false);
-    //         setCurrentPlayer('A')
-    //         setOpenCards([discarded]);
-    //     }
-    // };
-
-    return (
-        <div className='playerAContainer' style={currentPlayer === 'A' ? focusPlayer : {}}>
-            <h2 style={{ marginRight: '25px' }}>{player}</h2>
-            {playerSet.map((card, id) => {
-                return <>
-                    <div className='playerCardContainer' key={id}>
-                        <label className="container">
-                            <input
-                                className='inputSelected'
-                                type='checkbox'
-                            // onChange={(e) => handleSelect(e.target.checked, card)}
-                            />
-                            <span className="checkmark" />
-                        </label>
-                        <button className='card'>
-                            <h2>{card}</h2>
-                        </button>
-                        {(currentPlayer === 'A' && picked) &&
-                            <button
-                                className='discardButton'
-                            // onClick={() => handleDiscard(card)}
-                            >
-                                {'Discard'}
-                            </button>}
+const PlayerView = (props) => {
+    const [playerName, currentPlayer, playerSet, player] = props;
+    const focusPlayer = {
+        boxShadow: '2px 2px 2px 2px black',
+        backgroundColor: 'white',
+        display: 'flex',
+        borderRadius: '15px',
+        flexWrap: 'wrap',
+        padding: '15px',
+        margin: '15px'
+    };
+    return <>
+        <h2 style={{ marginRight: '25px' }}>{playerName}</h2>
+        <div style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}>
+            {playerSet.map((cardSet, id) => {
+                return (
+                    <div key={id}>
+                        {/* cardSet.length !== 0 condition added to not show blank space 
+                            if an array is empty in player set */}
+                        {cardSet.length !== 0 ?
+                            <div style={{ display: 'flex' }}>
+                                {playerSet.length !== 13 ?
+                                    <>
+                                        {cardSet.map((card, sIndex) => {
+                                            return (
+                                                <div key={sIndex}>
+                                                    {currentPlayer === player ?
+                                                        <label className="container">
+                                                            <input
+                                                                id={sIndex}
+                                                                className='inputSelected'
+                                                                type='checkbox'
+                                                                // onChange={(e) => handleSelect(e.target.checked, card)}
+                                                            />
+                                                            <span className="checkmark" />
+                                                        </label> : null}
+                                                    <button className='card'>
+                                                        <h2>{card}</h2>
+                                                    </button>
+                                                </div>
+                                            )
+                                        })}
+                                        <div className="middleSpace"></div>
+                                    </> :
+                                    <>
+                                        {currentPlayer === 'B' ? <label className="container">
+                                            <input className='inputSelected' type='checkbox' 
+                                            // onChange={(e) => handleSelect(e.target.checked, cardSet)} 
+                                            />
+                                            <span className="checkmark" />
+                                        </label> : null}
+                                        <button className='card'>
+                                            <h2>{cardSet}</h2>
+                                        </button>
+                                        {/* {(currentPlayer === 'B' && picked) && 
+                                        <button className='discardButton' onClick={() => handleDiscard(cardSet)}>
+                                            {'Discard'}
+                                        </button>} */}
+                                    </>
+                                }
+                            </div> : null
+                        }
                     </div>
-                </>
+                )
             })}
         </div>
-    );
-};
+    </>
+}

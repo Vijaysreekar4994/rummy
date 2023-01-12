@@ -14,7 +14,17 @@ export const Cards = () => {
     const [selectedCards, setSelectedCards] = useState([]);
     const [openCards, setOpenCards] = useState([]);
 
-    const focusPlayer = { boxShadow: '2px 2px 2px 2px black', backgroundColor: 'white' };
+    const focusPlayer = {
+        boxShadow: '2px 2px 2px 5px black',
+        backgroundColor: '#606060',
+        display: 'flex',
+        borderRadius: '15px',
+        flexWrap: 'wrap',
+        padding: '15px',
+        margin: '15px'
+    };
+
+    const selectPlayerButton = { height: '100px', width: '500px', alignSelf: 'center', margin: '25px', fontSize: '30px', borderRadius: '50px' }
     const club = '\u2663';// club '♣' 3 |'♧' 7
     const heart = '\u2665';// heart '♥' 5 | '♡' 1
     const spade = '\u2664';// spade symbol '♠' 0
@@ -52,66 +62,94 @@ export const Cards = () => {
         setCurrentPlayer(player)
     };
 
-    function handlePickFromAllCards() {
+    function handlePick(lastCard) {
+        if (currentPlayer === 'B') {
+            if (playerBSet.length !== 13) {
+                setPlayerBSet(prevState => {
+                    return [
+                        ...prevState,
+                        [lastCard]
+                    ]
+                });
+            } else {
+                setPlayerBSet(prevState => {
+                    return [
+                        [...prevState],
+                        [lastCard]
+                    ]
+                });
+            }
+        } else {
+            if (playerASet.length !== 13) {
+                setPlayerASet(prevState => {
+                    return [
+                        ...prevState,
+                        [lastCard]
+                    ]
+                });
+            } else {
+                setPlayerASet(prevState => {
+                    return [
+                        [...prevState],
+                        [lastCard]
+                    ]
+                });
+            }
+        }
+    }
+
+    function pickFromAllCards() {
         setPicked(true);
         let lastCard = cardSet53.pop();
-        if (currentPlayer === 'B') {
-            setPlayerBSet(
-                [
-                    ...playerBSet,
-                    lastCard
-                ]
-            );
-        }
-        if (currentPlayer === 'A') {
-            setPlayerASet(
-                [
-                    ...playerASet,
-                    lastCard
-                ]
-            );
-        }
+        handlePick(lastCard)
     };
 
-    function handlePickFromOpenCards() {
+    function pickFromOpenCards() {
         setPicked(true);
         let lastCard = openCards.pop();
-        if (currentPlayer === 'B') {
-            setPlayerBSet(
-                [
-                    ...playerBSet,
-                    lastCard
-                ]
-            );
-        }
-        if (currentPlayer === 'A') {
-            setPlayerASet(
-                [
-                    ...playerASet,
-                    lastCard
-                ]
-            );
-        }
+        handlePick(lastCard)
     };
 
-    function handleDiscard(discarded) {
-        if (currentPlayer === 'A') {
-            let filteredPlayerACards = playerASet.filter(card => card !== discarded);
-            setPlayerASet(filteredPlayerACards);
-            setPicked(false);
-            setCurrentPlayer('B')
-            setOpenCards([discarded]);
-        }
+    function handleDiscard() {
+        let set = [];
         if (currentPlayer === 'B') {
-            let filteredPlayerBCards = playerBSet.filter(card => card !== discarded);
-            setPlayerBSet(filteredPlayerBCards);
-            setPicked(false);
-            setCurrentPlayer('A')
-            setOpenCards([discarded]);
+            set = playerBSet;
+        } else {
+            set = playerASet;
         }
+
+        if (currentPlayer === 'B') {
+            selectedCards.forEach(card => {
+                set.forEach(array => {
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i] === card) {
+                            array.splice(i, 1);
+                        }
+                    }
+                })
+            });
+            setPlayerBSet(set);
+            setCurrentPlayer('A')
+        } else {
+            selectedCards.forEach(card => {
+                set.forEach(array => {
+                    for (var i = 0; i < array.length; i++) {
+                        if (array[i] === card) {
+                            array.splice(i, 1);
+                        }
+                    }
+                })
+            });
+            setPlayerASet(set);
+            setCurrentPlayer('B')
+        }
+        setOpenCards(selectedCards);
+        setPicked(false);
+        handleClearSelection();
     };
 
     function handleSelect(selected, card) {
+        // console.log(selected, card);
         if (selected) {
             setSelectedCards(
                 [
@@ -131,22 +169,44 @@ export const Cards = () => {
         document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
     };
 
-    // console.log(playerBSet);
+    function removeEmptyArraysfromPlayerSet() {
+        let playerSet = playerBSet;
+        //remove empty arrays from Player set
+        for (let i = 0; i < playerSet.length; i++) {
+            if (playerSet[i].length === 0) {
+                playerSet.splice(i, 1);
+            }
+        }
+    };
 
-    function handleGroupSubset(playerSet) {
-        // let newArray = [];
-        if (playerBSet.length === 13) {
+
+    function handleGroupSubset() {
+        let set = [];
+        if (currentPlayer === 'B') {
+            set = playerBSet;
+        } else {
+            set = playerASet;
+        }
+
+        if (set.length === 13) {
+            // this following loop will run and 
+            // divide cards for the first time 
+            // when all 13 cards are joined
             selectedCards.forEach(card => {
-                for (var i = 0; i < playerSet.length; i++) {
-                    if (playerSet[i] === card) {
-                        playerSet.splice(i, 1);
+                for (var i = 0; i < set.length; i++) {
+                    if (set[i] === card) {
+                        set.splice(i, 1);
                     }
                 }
             });
-            setPlayerBSet([playerSet, selectedCards]);
+            if (currentPlayer === 'B') {
+                setPlayerBSet([set, selectedCards]);
+            } else {
+                setPlayerASet([set, selectedCards]);
+            }
         } else {
             selectedCards.forEach(card => {
-                playerSet.forEach(array => {
+                set.forEach(array => {
                     for (var i = 0; i < array.length; i++) {
                         if (array[i] === card) {
                             array.splice(i, 1);
@@ -154,42 +214,35 @@ export const Cards = () => {
                     }
                 })
             });
-            // let dividedSet = playerSet.push(selectedCards)
-            console.log('test*********************', playerSet);
-            // setPlayerBSet(playerSet,selectedCards)
-            setPlayerBSet(
-                [
-                    ...playerBSet,
-                    selectedCards
-                ]
-            );
+            removeEmptyArraysfromPlayerSet();
+            if (currentPlayer === 'B') {
+                setPlayerBSet([...playerBSet, selectedCards]);
+            } else {
+                setPlayerASet([...playerASet, selectedCards]);
+            }
         }
-
-        // setPlayerBSet(playerSet, selectedCards)
         handleClearSelection();
-        // newArray.push(set, selected)
     }
-    console.log('selectedCards : ', selectedCards)
-    console.log('playerBset : ', playerBSet)
-
+    // console.log(playerBSet);
     useEffect(() => {
         generate53cardsSet();
     }, []);
+
     return (
         <>
             {/* CARDS SERVING BUTTONS VIEW */}
             {playerASet.length === 0 &&
                 <div className=''>
                     <div className=''>
-                        <h1 className='viewTitle'>Who wants to serve cards first ?</h1>
+                        <p className='viewTitle'>Who wants to serve cards first ?</p>
                     </div>
                     <div className='buttonsContainer'>
                         {/* {['B', 'A'].map((e, i) => {
                             return <button key={i} className='button' onClick={() => handleDistribution(cardSet53, e)}>Serve cards by player {e}</button>
                         })} */}
                         {/* TODO: add feature to add player custom names and let them play */}
-                        <button className='button' onClick={() => handleDistribution(cardSet53, 'B')}>Serve cards by player A</button>
-                        <button className='button' onClick={() => handleDistribution(cardSet53, 'A')}>Serve cards by player B</button>
+                        <button className='button' style={selectPlayerButton} onClick={() => handleDistribution(cardSet53, 'B')}>Player A</button>
+                        <button className='button' style={selectPlayerButton} onClick={() => handleDistribution(cardSet53, 'A')}>Player B</button>
                     </div>
                 </div>
             }
@@ -199,7 +252,7 @@ export const Cards = () => {
                 {currentPlayer &&
                     <CardsAvatar
                         buttonName='Pick'
-                        pickFunction={handlePickFromAllCards}
+                        pickFunction={pickFromAllCards}
                         jocker={jocker}
                         currentPlayer={currentPlayer}
                         picked={picked}
@@ -210,23 +263,24 @@ export const Cards = () => {
                         currentPlayer={currentPlayer}
                         openCards={openCards}
                         picked={picked}
-                        handlePick={handlePickFromOpenCards}
+                        handlePick={pickFromOpenCards}
                     />}
             </div>
 
-
-
             {/* ALL REMAINING CARDS VIEW */}
-            {/* <div className='cardSetContainer'>
+            <div className='cardSetContainer'>
                 {cardSet53.map((card, id) => {
+                    let d = card.includes(diamond);
+                    let h = card.includes(heart);
                     return <div className='card' key={id}>
-                        <h2>{card}</h2>
+                        <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                     </div>
                 })}
-                {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => handlePickFromAllCards()}>
+                {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => pickFromAllCards()}>
                     <h2>Pick</h2>
                 </div>}
-            </div> */}
+            </div>
+
             {/* JOCKER VIEW */}
             {/* {currentPlayer && <h2>Jocker</h2>}
             {jocker && <div className='jockerContainer'>
@@ -234,7 +288,6 @@ export const Cards = () => {
                     <h2>{jocker}</h2>
                 </div>
             </div>} */}
-
 
             {/* PLAYERS VIEW */}
             {/* {playerASet.length !== 0 && <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -244,10 +297,11 @@ export const Cards = () => {
                 <h2 className='playerAContainer'>Player A</h2>
                 <h2 className='playerBContainer'>Player B</h2>
             </div>} */}
+
             {playerASet.length !== 0 &&
                 <>
                     {/* <Player picked={picked} currentPlayer={currentPlayer} player={'PLAYER A'} playerSet={playerASet} handleDiscard={handleDiscard} /> */}
-                    <h2 style={{ marginRight: '25px' }}>PLAYER A</h2>
+                    {/* <h2 style={{ marginRight: '25px' }}>PLAYER A</h2> */}
                     {/* <div className='playerAContainer' style={currentPlayer === 'A' ? focusPlayer : {}}>
                         {playerASet.map((card, id) => {
                             return <>
@@ -266,50 +320,112 @@ export const Cards = () => {
                             </>
                         })}
                     </div> */}
-                    <h2 style={{ marginRight: '25px' }}>PLAYER B</h2>
-                    <div style={{ display: 'flex' }}>
-                        {playerBSet.map((card, id) => {
+                    <h2 style={{ marginRight: '25px' }}>PLAYER A</h2>
+                    <div style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}>
+                        {playerASet.map((card, id) => {
                             return (
-                                <div key={id} style={{ display: 'flex' }}>
-                                    {playerBSet.length !== 13 ?
-                                        <>
-                                            {card.map((subItems, sIndex) => {
-                                                return (
-                                                    <div key={sIndex}>
-                                                        {currentPlayer === 'B' ? <label className="container">
-                                                            <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, subItems)} />
-                                                            <span className="checkmark" />
-                                                        </label> : null}
+                                <div key={id}>
+                                    {/* card.length !== 0 condition added to not show blank space 
+                                if an array is empty in player set */}
+                                    {card.length !== 0 ?
+                                        <div style={{ display: 'flex' }}>
+                                            {playerASet.length !== 13 ?
+                                                <>
+                                                    {card.map((subItems, sIndex) => {
+                                                        return (
+                                                            <div key={sIndex}>
+                                                                {currentPlayer === 'A' ? <label className="container">
+                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, subItems)} />
+                                                                    <span className="checkmark" />
+                                                                </label> : null}
+                                                                <button className='card'>
+                                                                    <h2>{subItems}</h2>
+                                                                </button>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    <div className="middleSpace"></div>
+                                                </> :
+                                                <>
+                                                    {currentPlayer === 'A' ? <label className="container">
+                                                        <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
+                                                        <span className="checkmark" />
+                                                    </label> : null}
+                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                         <button className='card'>
-                                                            <h2>{subItems}</h2>
+                                                            <h2>{card}</h2>
                                                         </button>
+                                                        {/* {(currentPlayer === 'A' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
+                                                            {'Discard'}
+                                                        </button>} */}
                                                     </div>
-                                                )
-                                            })}
-                                            <div className="middleSpace"></div>
-                                        </> :
-                                        <>
-                                            {currentPlayer === 'B' ? <label className="container">
-                                                <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                                <span className="checkmark" />
-                                            </label> : null}
-                                            <button className='card'>
-                                                <h2>{card}</h2>
-                                            </button>
-                                            {(currentPlayer === 'B' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
-                                                {'Discard'}
-                                            </button>}
-                                        </>
+                                                </>
+                                            }
+                                        </div> : null
                                     }
                                 </div>
                             )
                         })}
                     </div>
-                </>}
+                    <h2 style={{ marginRight: '25px' }}>PLAYER B</h2>
+                    <div style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}>
+                        {playerBSet.map((card, id) => {
+                            return (
+                                <div key={id}>
+                                    {/* card.length !== 0 condition added to not show blank space 
+                                if an array is empty in player set */}
+                                    {card.length !== 0 ?
+                                        <div style={{ display: 'flex' }}>
+                                            {playerBSet.length !== 13 ?
+                                                <>
+                                                    {card.map((subItems, sIndex) => {
+                                                        return (
+                                                            <div key={sIndex}>
+                                                                {currentPlayer === 'B' ? <label className="container">
+                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, subItems)} />
+                                                                    <span className="checkmark" />
+                                                                </label> : null}
+                                                                <button className='card'>
+                                                                    <h2>{subItems}</h2>
+                                                                </button>
+                                                            </div>
+                                                        )
+                                                    })}
+                                                    <div className="middleSpace"></div>
+                                                </> :
+                                                <>
+                                                    {currentPlayer === 'B' ? <label className="container">
+                                                        <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
+                                                        <span className="checkmark" />
+                                                    </label> : null}
+                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                        <button className='card'>
+                                                            <h2>{card}</h2>
+                                                        </button>
+                                                        {/* {(currentPlayer === 'B' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
+                                                            {'Discard'}
+                                                        </button>} */}
+                                                    </div>
+                                                </>
+                                            }
+                                        </div> : null
+                                    }
+                                </div>
+                            )
+                        })}
+                    </div>
+
+
+
+
+
+                </>
+            }
             {selectedCards.length !== 0 &&
                 <>
                     <button className='button' onClick={() => handleClearSelection()}>Clear selection</button>
-                    <button className='button' onClick={() => handleGroupSubset(playerBSet)}>Group</button>
+                    {selectedCards.length >= 2 && <button className='button' onClick={() => handleGroupSubset(currentPlayer)}>Group</button>}
+                    {(selectedCards.length === 1 && picked) && <button className='button' onClick={() => handleDiscard()}>Discard</button>}
                 </>
             }
         </>
