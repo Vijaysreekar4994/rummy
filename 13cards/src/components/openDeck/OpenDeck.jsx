@@ -1,6 +1,9 @@
 import './openDeck.css'
 
 export const OpenDeck = (props) => {
+    const heart = '\u2665';// heart '♥' 5 | '♡' 1
+    const diamond = '\u2666'; // diamond '♦' 6 | 2
+    // console.log(props.jocker);
     return (
         <div className='openCardsContainerView'>
             <div className='openCardsContainer'>
@@ -10,8 +13,10 @@ export const OpenDeck = (props) => {
                     </div>
                 }
                 {props.openCards.map((card, id) => {
+                      let d = card.includes(diamond);
+                      let h = card.includes(heart);
                     return <div className='card' key={id}>
-                        <h2>{card}</h2>
+                        <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                     </div>
                 })}
                 {(props.currentPlayer && !props.picked) ?

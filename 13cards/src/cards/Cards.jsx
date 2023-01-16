@@ -4,6 +4,9 @@ import { CardsAvatar } from '../components/cardSet/CardsAvatar';
 import { OpenDeck } from '../components/openDeck/OpenDeck';
 import { Player } from '../components/player/Player';
 
+
+
+
 export const Cards = () => {
     const [cardSet53, setCardSet53] = useState([]);
     const [playerASet, setPlayerASet] = useState([]);
@@ -27,8 +30,19 @@ export const Cards = () => {
     const selectPlayerButton = { height: '100px', width: '500px', alignSelf: 'center', margin: '25px', fontSize: '30px', borderRadius: '50px' }
     const club = '\u2663';// club '♣' 3 |'♧' 7
     const heart = '\u2665';// heart '♥' 5 | '♡' 1
-    const spade = '\u2664';// spade symbol '♠' 0
-    const diamond = '\u2662'; // diamond '♦' 6
+    const spade = '\u2660';// spade symbol '♠' 0
+    const diamond = '\u2666'; // diamond '♦' 6 | 2
+
+    // const CardText = (card) => {
+    //     console.log('*******************',card);
+    //     let d = card.includes(diamond);
+    //     let h = card.includes(heart);
+    //     return (
+    //         <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
+    //     )
+    // }
+
+
     function generate53cardsSet() {
         let clubs = [`A${club}`, `J${club}`, `Q${club}`, `K${club}`];
         let hearts = [`A${heart}`, `J${heart}`, `Q${heart}`, `K${heart}`];
@@ -146,6 +160,7 @@ export const Cards = () => {
         setOpenCards(selectedCards);
         setPicked(false);
         handleClearSelection();
+        removeEmptyArraysfromPlayerSet();
     };
 
     function handleSelect(selected, card) {
@@ -170,11 +185,16 @@ export const Cards = () => {
     };
 
     function removeEmptyArraysfromPlayerSet() {
-        let playerSet = playerBSet;
+        let set = [];
+        if (currentPlayer === 'B') {
+            set = playerBSet;
+        } else {
+            set = playerASet;
+        }
         //remove empty arrays from Player set
-        for (let i = 0; i < playerSet.length; i++) {
-            if (playerSet[i].length === 0) {
-                playerSet.splice(i, 1);
+        for (let i = 0; i < set.length; i++) {
+            if (set[i].length === 0) {
+                set.splice(i, 1);
             }
         }
     };
@@ -214,7 +234,7 @@ export const Cards = () => {
                     }
                 })
             });
-            removeEmptyArraysfromPlayerSet();
+            // removeEmptyArraysfromPlayerSet();
             if (currentPlayer === 'B') {
                 setPlayerBSet([...playerBSet, selectedCards]);
             } else {
@@ -223,7 +243,8 @@ export const Cards = () => {
         }
         handleClearSelection();
     }
-    // console.log(playerBSet);
+    // console.log('playerBSet', playerBSet);
+    // console.log('playerASet', playerASet);
     useEffect(() => {
         generate53cardsSet();
     }, []);
@@ -268,18 +289,19 @@ export const Cards = () => {
             </div>
 
             {/* ALL REMAINING CARDS VIEW */}
-            <div className='cardSetContainer'>
+            {/* <div className='cardSetContainer'>
                 {cardSet53.map((card, id) => {
                     let d = card.includes(diamond);
                     let h = card.includes(heart);
-                    return <div className='card' key={id}>
-                        <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                    </div>
+                    return (
+                        <div className='card' key={id}>
+                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
+                        </div>)
                 })}
                 {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => pickFromAllCards()}>
                     <h2>Pick</h2>
                 </div>}
-            </div>
+            </div> */}
 
             {/* JOCKER VIEW */}
             {/* {currentPlayer && <h2>Jocker</h2>}
@@ -320,9 +342,27 @@ export const Cards = () => {
                             </>
                         })}
                     </div> */}
-                    <h2 style={{ marginRight: '25px' }}>PLAYER A</h2>
+                    {/* <PlayerView
+                        playerName={'PLAYER A'}
+                        currentPlayer={currentPlayer}
+                        playerSet={playerASet}
+                        selectedCards={selectedCards}
+                        setSelectedCards={setSelectedCards}
+                    />
+                    <PlayerView
+                        playerName={'PLAYER B'}
+                        currentPlayer={currentPlayer}
+                        playerSet={playerBSet}
+                        selectedCards={selectedCards}
+                        setSelectedCards={setSelectedCards}
+                    />
+
+ */}
+<h2 style={{ marginRight: '25px' }}>PLAYER A</h2>
                     <div style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}>
                         {playerASet.map((card, id) => {
+                            let d = card.includes(diamond);
+                            let h = card.includes(heart);
                             return (
                                 <div key={id}>
                                     {/* card.length !== 0 condition added to not show blank space 
@@ -331,15 +371,18 @@ export const Cards = () => {
                                         <div style={{ display: 'flex' }}>
                                             {playerASet.length !== 13 ?
                                                 <>
-                                                    {card.map((subItems, sIndex) => {
+                                                    {card.map((card, sIndex) => {
+                                                        let d = card.includes(diamond);
+                                                        let h = card.includes(heart);
                                                         return (
                                                             <div key={sIndex}>
                                                                 {currentPlayer === 'A' ? <label className="container">
-                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, subItems)} />
+                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
                                                                     <span className="checkmark" />
                                                                 </label> : null}
                                                                 <button className='card'>
-                                                                    <h2>{subItems}</h2>
+                                                                    {/* <h2>{card}</h2> */}
+                                                                    <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                                                                 </button>
                                                             </div>
                                                         )
@@ -353,7 +396,8 @@ export const Cards = () => {
                                                     </label> : null}
                                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                         <button className='card'>
-                                                            <h2>{card}</h2>
+                                                            {/* <h2>{card}</h2> */}
+                                                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                                                         </button>
                                                         {/* {(currentPlayer === 'A' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
                                                             {'Discard'}
@@ -370,6 +414,8 @@ export const Cards = () => {
                     <h2 style={{ marginRight: '25px' }}>PLAYER B</h2>
                     <div style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}>
                         {playerBSet.map((card, id) => {
+                             let d = card.includes(diamond);
+                             let h = card.includes(heart);
                             return (
                                 <div key={id}>
                                     {/* card.length !== 0 condition added to not show blank space 
@@ -378,15 +424,18 @@ export const Cards = () => {
                                         <div style={{ display: 'flex' }}>
                                             {playerBSet.length !== 13 ?
                                                 <>
-                                                    {card.map((subItems, sIndex) => {
+                                                    {card.map((card, sIndex) => {
+                                                         let d = card.includes(diamond);
+                                                         let h = card.includes(heart);
                                                         return (
                                                             <div key={sIndex}>
                                                                 {currentPlayer === 'B' ? <label className="container">
-                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, subItems)} />
+                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
                                                                     <span className="checkmark" />
                                                                 </label> : null}
                                                                 <button className='card'>
-                                                                    <h2>{subItems}</h2>
+                                                                    {/* <h2>{card}</h2> */}
+                                                                    <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                                                                 </button>
                                                             </div>
                                                         )
@@ -400,7 +449,8 @@ export const Cards = () => {
                                                     </label> : null}
                                                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                         <button className='card'>
-                                                            <h2>{card}</h2>
+                                                            {/* <h2>{card}</h2> */}
+                                                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                                                         </button>
                                                         {/* {(currentPlayer === 'B' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
                                                             {'Discard'}
@@ -414,8 +464,6 @@ export const Cards = () => {
                             )
                         })}
                     </div>
-
-
 
 
 
