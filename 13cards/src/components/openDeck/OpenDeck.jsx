@@ -15,14 +15,14 @@ export const OpenDeck = (props) => {
                 {props.openCards.map((card, id) => {
                       let d = card.includes(diamond);
                       let h = card.includes(heart);
-                    return <div className='card' key={id}>
+                    return <button className='card' key={id}>
                         <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                    </div>
+                    </button>
                 })}
                 {(props.currentPlayer && !props.picked) ?
-                    <div className='pickFromAllCardsButton' onClick={() => props.handlePick()}>
-                        <h2>Pick</h2>
-                    </div> :
+                    <button className='pickFromAllCardsButton' onClick={() => props.handlePick()}>
+                        <h4>Pick</h4>
+                    </button> :
                     <div className='card' />
                 }
             </div>
