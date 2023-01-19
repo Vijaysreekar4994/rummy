@@ -4,16 +4,6 @@ import { CardsAvatar } from '../components/cardSet/CardsAvatar';
 import { OpenDeck } from '../components/openDeck/OpenDeck';
 import PlayerView from '../components/playerView/PlayerView';
 
-// const CardText = (card) => {
-//     console.log('*******************',card);
-//     let d = card.includes(diamond);
-//     let h = card.includes(heart);
-//     return (
-//         <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-//     )
-// }
-
-
 export const Cards = () => {
     const [cardSet53, setCardSet53] = useState([]);
     const [playerASet, setPlayerASet] = useState([]);
@@ -161,21 +151,6 @@ export const Cards = () => {
         removeEmptyArraysfromPlayerSet();
     };
 
-    function handleSelect(selected, card) {
-        // console.log(selected, card);
-        if (selected) {
-            setSelectedCards(
-                [
-                    ...selectedCards,
-                    card
-                ]
-            );
-        } else {
-            let a = selectedCards.filter(e => e !== card);
-            setSelectedCards(a);
-        }
-    };
-
     function handleClearSelection() {
         setSelectedCards([]);
         // https://stackoverflow.com/questions/46571097/clear-a-list-of-checkboxes-in-react
@@ -254,16 +229,12 @@ export const Cards = () => {
                         <p className='viewTitle'>Who wants to serve cards first ?</p>
                     </div>
                     <div className='buttonsContainer'>
-                        {/* {['B', 'A'].map((e, i) => {
-                            return <button key={i} className='button' onClick={() => handleDistribution(cardSet53, e)}>Serve cards by player {e}</button>
-                        })} */}
                         {/* TODO: add feature to add player custom names and let them play */}
                         <button className='button' style={selectPlayerButton} onClick={() => handleDistribution(cardSet53, 'B')}>Player A</button>
                         <button className='button' style={selectPlayerButton} onClick={() => handleDistribution(cardSet53, 'A')}>Player B</button>
                     </div>
                 </div>
             }
-
             {/* JOCKER AND CARDS AVTAR */}
             <div style={{ display: 'flex' }}>
                 {currentPlayer &&
@@ -284,60 +255,8 @@ export const Cards = () => {
                     />}
             </div>
 
-            {/* ALL REMAINING CARDS VIEW */}
-            {/* <div className='cardSetContainer'>
-                {cardSet53.map((card, id) => {
-                    let d = card.includes(diamond);
-                    let h = card.includes(heart);
-                    return (
-                        <div className='card' key={id}>
-                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                        </div>)
-                })}
-                {(currentPlayer && !picked) && <div className='pickFromAllCardsButton' onClick={() => pickFromAllCards()}>
-                    <h2>Pick</h2>
-                </div>}
-            </div> */}
-
-            {/* JOCKER VIEW */}
-            {/* {currentPlayer && <h2>Jocker</h2>}
-            {jocker && <div className='jockerContainer'>
-                <div className='card'>
-                    <h2>{jocker}</h2>
-                </div>
-            </div>} */}
-
-            {/* PLAYERS VIEW */}
-            {/* {playerASet.length !== 0 && <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <h2 className='playerBContainer'>It's Player {currentPlayer} turn !</h2>
-            </div>} */}
-            {/* {playerASet.length !== 0 && <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                <h2 className='playerAContainer'>Player A</h2>
-                <h2 className='playerBContainer'>Player B</h2>
-            </div>} */}
-
             {playerASet.length !== 0 &&
                 <>
-                    {/* <Player picked={picked} currentPlayer={currentPlayer} player={'PLAYER A'} playerSet={playerASet} handleDiscard={handleDiscard} /> */}
-                    {/* <h2 style={{ marginRight: '25px' }}>PLAYER A</h2> */}
-                    {/* <div className='playerAContainer' style={currentPlayer === 'A' ? focusPlayer : {}}>
-                        {playerASet.map((card, id) => {
-                            return <>
-                                <div className='playerCardContainer' key={id}>
-                                    {currentPlayer === 'A' && <label className="container">
-                                        <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                        <span className="checkmark" />
-                                    </label>}
-                                    <button className='card'>
-                                        <h2>{card}</h2>
-                                    </button>
-                                    {(currentPlayer === 'A' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
-                                        {'Discard'}
-                                    </button>}
-                                </div>
-                            </>
-                        })}
-                    </div> */}
                     {/* {currentPlayer === 'A' ? */}
                     <PlayerView
                         style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}
@@ -367,110 +286,8 @@ export const Cards = () => {
                             {(selectedCards.length === 1 && picked) && <button className='button' onClick={() => handleDiscard()}>Discard</button>}
                         </>
                     }
-                    {/* <hr style={{ height: '5px', border: '5px solid black' }}></hr> */}
-                    {/* **************************************************************
-                    ****************************************************************** */}
-                    {/* <h2 style={{ marginRight: '25px' }}>PLAYER A</h2>
-                    <div style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}>
-                        {playerASet.map((card, id) => {
-                            let d = card.includes(diamond);
-                            let h = card.includes(heart);
-                            return (
-                                <div key={id}>
-                                    {card.length !== 0 ?
-                                        <div style={{ display: 'flex' }}>
-                                            {playerASet.length !== 13 ?
-                                                <>
-                                                    {card.map((card, sIndex) => {
-                                                        let d = card.includes(diamond);
-                                                        let h = card.includes(heart);
-                                                        return (
-                                                            <div key={sIndex}>
-                                                                {currentPlayer === 'A' ? <label className="container">
-                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                                                    <span className="checkmark" />
-                                                                </label> : null}
-                                                                <button className='card'>
-                                                                    <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                                                                </button>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                    <div className="middleSpace"></div>
-                                                </> :
-                                                <>
-                                                    {currentPlayer === 'A' ? <label className="container">
-                                                        <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                                        <span className="checkmark" />
-                                                    </label> : null}
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <button className='card'>
-                                                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                                                        </button>
-                                                    </div>
-                                                </>
-                                            }
-                                        </div> : null
-                                    }
-                                </div>
-                            )
-                        })}
-                    </div>
-                     <h2 style={{ marginRight: '25px' }}>PLAYER B</h2>
-                     <div style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}>
-                        {playerBSet.map((card, id) => {
-                            let d = card.includes(diamond);
-                            let h = card.includes(heart);
-                            return (
-                                <div key={id}>
-                                    {card.length !== 0 ?
-                                        <div style={{ display: 'flex' }}>
-                                            {playerBSet.length !== 13 ?
-                                                <>
-                                                    {card.map((card, sIndex) => {
-                                                        let d = card.includes(diamond);
-                                                        let h = card.includes(heart);
-                                                        return (
-                                                            <div key={sIndex}>
-                                                                {currentPlayer === 'B' ? <label className="container">
-                                                                    <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                                                    <span className="checkmark" />
-                                                                </label> : null}
-                                                                <button className='card'>
-                                                                    <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                                                                </button>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                    <div className="middleSpace"></div>
-                                                </> :
-                                                <>
-                                                    {currentPlayer === 'B' ? <label className="container">
-                                                        <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
-                                                        <span className="checkmark" />
-                                                    </label> : null}
-                                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                        <button className='card'>
-                                                            <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
-                                                        </button>
-                                                    </div>
-                                                </>
-                                            }
-                                        </div> : null
-                                    }
-                                </div>
-                            )
-                        })}
-                    </div> */}
-
-
-
                 </>
             }
         </>
     )
 };
-
-{/* {(currentPlayer === 'A' && picked) && <button className='discardButton' onClick={() => handleDiscard(card)}>
-                                                            {'Discard'}
-                                                        </button>} */}
