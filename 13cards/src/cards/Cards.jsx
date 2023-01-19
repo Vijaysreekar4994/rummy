@@ -263,7 +263,6 @@ export const Cards = () => {
                     </div>
                 </div>
             }
-
             {/* JOCKER AND CARDS AVTAR */}
             <div style={{ display: 'flex' }}>
                 {currentPlayer &&
