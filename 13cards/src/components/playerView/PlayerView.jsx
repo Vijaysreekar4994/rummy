@@ -39,10 +39,10 @@ export default function PlayerView(props) {
                                                 let h = card.includes(heart);
                                                 return (
                                                     <div key={sIndex}>
-                                                        <label className="container">
+                                                        {props.inPlay && <label className="container">
                                                             <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
                                                             <span className="checkmark" />
-                                                        </label>
+                                                        </label>}
                                                         <button className='card'>
                                                             <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>
                                                         </button>
@@ -52,10 +52,10 @@ export default function PlayerView(props) {
                                             <div className="middleSpace"></div>
                                         </> :
                                         <>
-                                            <label className="container">
+                                            {props.inPlay && <label className="container">
                                                 <input className='inputSelected' type='checkbox' onChange={(e) => handleSelect(e.target.checked, card)} />
                                                 <span className="checkmark" />
-                                            </label>
+                                            </label>}
                                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                 <button className='card'>
                                                     <h2 style={{ color: d || h ? 'red' : '' }}>{card}</h2>

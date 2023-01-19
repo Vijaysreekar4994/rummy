@@ -20,7 +20,6 @@ export const Cards = () => {
     const [playerBSet, setPlayerBSet] = useState([]);
     const [jocker, setJocker] = useState('');
     const [currentPlayer, setCurrentPlayer] = useState('');
-    const [currentPlayerFocus, setCurrentPlayerFocus] = useState(false);
     const [picked, setPicked] = useState();
     const [selectedCards, setSelectedCards] = useState([]);
     const [openCards, setOpenCards] = useState([]);
@@ -73,7 +72,6 @@ export const Cards = () => {
         setJocker(shuffledCards.splice(0, 1));
         setOpenCards(shuffledCards.splice(10, 1));
         setCurrentPlayer(player)
-        // setCurrentPlayerFocus(true)
     };
 
     function handlePick(lastCard) {
@@ -246,7 +244,7 @@ export const Cards = () => {
     useEffect(() => {
         generate53cardsSet();
     }, []);
-
+    console.log(currentPlayer);
     return (
         <>
             {/* CARDS SERVING BUTTONS VIEW */}
@@ -348,6 +346,7 @@ export const Cards = () => {
                         playerSet={playerASet}
                         selectedCards={selectedCards}
                         setSelectedCards={setSelectedCards}
+                        inPlay={currentPlayer === 'A' && true}
                     />
                     {/* : null}
                     {/* {currentPlayer === 'B' ? */}
@@ -358,6 +357,7 @@ export const Cards = () => {
                         playerSet={playerBSet}
                         selectedCards={selectedCards}
                         setSelectedCards={setSelectedCards}
+                        inPlay={currentPlayer === 'B' && true}
                     />
                     {/* : null} */}
                     {selectedCards.length !== 0 &&
