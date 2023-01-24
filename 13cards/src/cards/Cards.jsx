@@ -3,6 +3,7 @@ import './card.css'
 import { CardsAvatar } from '../components/cardSet/CardsAvatar';
 import { OpenDeck } from '../components/openDeck/OpenDeck';
 import PlayerView from '../components/playerView/PlayerView';
+import subsetValidation from '../data/mainLogic.js';
 
 export const Cards = () => {
     const [cardSet53, setCardSet53] = useState([]);
@@ -13,6 +14,8 @@ export const Cards = () => {
     const [picked, setPicked] = useState();
     const [selectedCards, setSelectedCards] = useState([]);
     const [openCards, setOpenCards] = useState([]);
+    const [playerAValidSets, setPlayerAValidSets] = useState([]);
+    const [playerBValidSets, setPlayerBValidSets] = useState([]);
 
     const focusPlayer = {
         boxShadow: '2px 2px 2px 5px black',
@@ -103,7 +106,8 @@ export const Cards = () => {
     function pickFromAllCards() {
         setPicked(true);
         let lastCard = cardSet53.pop();
-        handlePick(lastCard)
+        handlePick(lastCard);
+        setOpenCards([])
     };
 
     function pickFromOpenCards() {
@@ -149,6 +153,8 @@ export const Cards = () => {
         setPicked(false);
         handleClearSelection();
         removeEmptyArraysfromPlayerSet();
+        setPlayerBValidSets(subsetValidation(playerBSet));
+        setPlayerAValidSets(subsetValidation(playerASet));
     };
 
     function handleClearSelection() {
@@ -219,7 +225,12 @@ export const Cards = () => {
     useEffect(() => {
         generate53cardsSet();
     }, []);
-    console.log(currentPlayer);
+    useEffect(() => {
+        removeEmptyArraysfromPlayerSet();
+        setPlayerAValidSets(subsetValidation(playerASet));
+        setPlayerBValidSets(subsetValidation(playerBSet));
+    }, [playerASet, playerBSet]);
+    // console.log(currentPlayer);
     return (
         <>
             {/* CARDS SERVING BUTTONS VIEW */}
@@ -259,6 +270,7 @@ export const Cards = () => {
                 <>
                     {/* {currentPlayer === 'A' ? */}
                     <PlayerView
+                        validSets={playerAValidSets}
                         style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}
                         playerName={'PLAYER AAA'}
                         currentPlayer={currentPlayer}
@@ -270,6 +282,7 @@ export const Cards = () => {
                     {/* : null}
                     {/* {currentPlayer === 'B' ? */}
                     <PlayerView
+                        validSets={playerBValidSets}
                         style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}
                         playerName={'PLAYER BBB'}
                         currentPlayer={currentPlayer}

@@ -7,11 +7,9 @@ export const OpenDeck = (props) => {
     return (
         <div className='openCardsContainerView'>
             <div className='openCardsContainer'>
-                {props.currentPlayer &&
                     <div className='openDeckView'>
                         <h3>OPEN DECK</h3>
                     </div>
-                }
                 {props.openCards.map((card, id) => {
                       let d = card.includes(diamond);
                       let h = card.includes(heart);
@@ -22,7 +20,8 @@ export const OpenDeck = (props) => {
                 {(props.currentPlayer && !props.picked) ?
                     <button className='pickFromAllCardsButton' onClick={() => props.handlePick()}>
                         <h4>Pick</h4>
-                    </button> :
+                    </button> 
+                    :
                     <div className='card' />
                 }
             </div>
