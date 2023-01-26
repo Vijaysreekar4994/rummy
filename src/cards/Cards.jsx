@@ -107,13 +107,15 @@ export const Cards = () => {
         setPicked(true);
         let lastCard = cardSet53.pop();
         handlePick(lastCard);
-        setOpenCards([])
+        setOpenCards([]);
+        setSelectedCards([]);
     };
 
     function pickFromOpenCards() {
         setPicked(true);
         let lastCard = openCards.pop();
-        handlePick(lastCard)
+        handlePick(lastCard);
+        setSelectedCards([]);
     };
 
     function handleDiscard() {
