@@ -1,6 +1,6 @@
 {
   "homepage":"https://vijaysreekar4994.github.io/rummy",
-  "name": "13cards",
+  "name": "rummy",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
