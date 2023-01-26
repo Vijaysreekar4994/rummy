@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rummy/static/css/main.4464abb0.css",
+    "main.js": "/rummy/static/js/main.3edab04a.js",
+    "static/js/787.738c54da.chunk.js": "/rummy/static/js/787.738c54da.chunk.js",
+    "index.html": "/rummy/index.html",
+    "main.4464abb0.css.map": "/rummy/static/css/main.4464abb0.css.map",
+    "main.3edab04a.js.map": "/rummy/static/js/main.3edab04a.js.map",
+    "787.738c54da.chunk.js.map": "/rummy/static/js/787.738c54da.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4464abb0.css",
+    "static/js/main.3edab04a.js"
+  ]
+}
