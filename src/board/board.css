@@ -28,17 +28,19 @@
 @media (max-width: 768px) {
     .board {
         width: 90vw;
-        margin-top: 50px;
+        /* margin-top: 50px; */
         padding: 10px;
         /* height: 80vh; */
+        border-radius: 10px;
     }
 }
 
 @media (max-width: 414px) {
     .board {
         width: 90vw;
-        margin-top: 50px;
-        padding: 10px;
-        /* height: 80vw; */
+        /* margin-top: 50px; */
+        /* padding: 10px; */
+        height: 100%;
+        border-radius: 10px;
     }
 }

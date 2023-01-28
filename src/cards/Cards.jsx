@@ -27,7 +27,12 @@ export const Cards = () => {
         margin: '15px'
     };
 
-    const selectPlayerButton = { height: '100px', width: '500px', alignSelf: 'center', margin: '25px', fontSize: '30px', borderRadius: '50px' }
+    const playerContainer ={
+        display:'flex',
+        flexWrap: 'wrap',
+    };
+
+    const selectPlayerButton = { height: '100px', width: '50%', alignSelf: 'center', margin: '25px', fontSize: '30px', borderRadius: '50px' }
     const club = '\u2663';// club '♣' 3 |'♧' 7
     const heart = '\u2665';// heart '♥' 5 | '♡' 1
     const spade = '\u2660';// spade symbol '♠' 0
@@ -273,7 +278,7 @@ export const Cards = () => {
                     {/* {currentPlayer === 'A' ? */}
                     <PlayerView
                         validSets={playerAValidSets}
-                        style={currentPlayer === 'A' ? focusPlayer : { display: 'flex' }}
+                        style={currentPlayer === 'A' ? focusPlayer : playerContainer}
                         playerName={'PLAYER AAA'}
                         currentPlayer={currentPlayer}
                         playerSet={playerASet}
@@ -285,7 +290,7 @@ export const Cards = () => {
                     {/* {currentPlayer === 'B' ? */}
                     <PlayerView
                         validSets={playerBValidSets}
-                        style={currentPlayer === 'B' ? focusPlayer : { display: 'flex' }}
+                        style={currentPlayer === 'B' ? focusPlayer : playerContainer}
                         playerName={'PLAYER BBB'}
                         currentPlayer={currentPlayer}
                         playerSet={playerBSet}

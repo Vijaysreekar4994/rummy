@@ -1,4 +1,4 @@
-.pickAvatarAllCardsView{
+.pickAvatarAllCardsView {
     position: absolute;
     top: 0;
     background-color: rgba(161, 202, 205, 0.237);
@@ -9,18 +9,19 @@
     justify-content: center;
     align-items: center;
     border: 1px solid transparent;
-    
+
 }
-.pickAvatarAllCardsButton{
+
+.pickAvatarAllCardsButton {
     color: rgb(255, 255, 255);
     font-size: 80px;
-    font-family: 'Courier New', Courier, monospace;  
+    font-family: 'Courier New', Courier, monospace;
     filter: drop-shadow(0 3mm 2mm rgb(0, 0, 0));
     font-weight: bold;
     cursor: pointer;
 }
 
-.pickAvatarAllCardsView:hover{
+.pickAvatarAllCardsView:hover {
     filter: drop-shadow(2mm 5mm 3mm rgb(0, 0, 0));
     /* border: 1px solid white; */
     transform: translateY(5px);
@@ -81,4 +82,51 @@
     height: 150px;
     overflow: hidden;
     margin: 0 5px 0 5px;
+}
+
+
+@media screen and (max-width: 768px) and (max-width: 414px) {
+    .pickAvatarAllCardsView {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        margin: 0px;
+        padding: 0px;
+    }
+    .pickAvatarAllCardsButton {
+        color: rgb(255, 255, 255);
+        font-size: 25px;
+        font-family: 'Courier New', Courier, monospace;
+        filter: drop-shadow(0 3mm 2mm rgb(0, 0, 0));
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .allCardsView {
+        width: 100px;
+        height: 50px;
+        margin-left: 25px;
+        margin-top: 150px;
+    }
+
+    .jockerView {
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 15px;
+        height: 100px;
+        width: 70px;
+        background-color: rgb(255, 255, 255);
+        font-size: 35px;
+        margin-left: 25px;
+        margin-top: 50px;
+    }
+
+    .cardDesign {
+        word-wrap: break-word;
+        color: transparent;
+        width: 100px;
+        height: 50px;
+        overflow: hidden;
+        /* margin: 0 5px 0 5px; */
+    }
 }

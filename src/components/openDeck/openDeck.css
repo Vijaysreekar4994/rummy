@@ -1,7 +1,7 @@
 .openCardsContainerView {
     display: flex;
     /* flex-direction: column; */
-    
+
 }
 
 .openCardsContainer {
@@ -33,8 +33,44 @@
     top: 80px;
     background-color: rgb(205, 205, 205);
     line-height: 5px;
-    /* border-radius: 15px; */
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     padding-inline: 15px;
 }
+
+@media (max-width: 768px) {
+    .openCardsContainer {
+        border: none;
+        padding: 0px;
+    }
+
+    .openDeckView {
+        position: absolute;
+        top: 50px;
+        background-color: transparent;
+        border: none;
+        padding-inline: 0px;
+        line-height: 0px;
+    }
+}
+@media (max-width: 414px) {
+    .openCardsContainer {
+        border: none;
+        padding: 0px;
+    }
+
+    .openDeckView {
+        position: absolute;
+        top: 50px;
+        background-color: transparent;
+        border: none;
+        padding-inline: 0px;
+        line-height: 0px;
+    }
+}
+
+/* @media only screen and (orientation: landscape) {
+    body {
+      background-color: lightblue;
+    }
+  } */
