@@ -11,29 +11,13 @@
 //         "9♦"
 //     ],
 //     [
-//         "9♦",
-//         "9♠",
-//         "9♥"
+//         "2♦",
+//         "2♠",
+//         "2♥"
 //     ]
 // ]
-// function checkDuplicates(arr) {
-//     let check = arr.filter((el, i) => arr.indexOf(el) !== i);
-//     if (!check.length &&
-//         arr.length >= 3 &&
-//         arr.length <= 4) {
-//         // console.log('all symbols are different and OK to validate TRILL - (numbers to be checked)');
-//         // console.log('------------------------------------');
-//         return true;
-//     } else {
-//         // console.log(check, 'duplicates found or no valid length of subset');
-//         // console.log('------------------------------------');
-//         return false;
-//     }
 
-// }
-
-// checkDuplicates(symbs);
-
+// subsetValidation(playerSet)
 
 export default function subsetValidation(playerSet) {
 
@@ -47,7 +31,7 @@ export default function subsetValidation(playerSet) {
         }
     }
 
-    console.log(set)
+    // console.log(set)
 
 
     let idsOfSameSymbolsInSubset = []; // this array stores the subset ids where all symbols are same
@@ -82,7 +66,8 @@ export default function subsetValidation(playerSet) {
                 let symbs = splitE.pop();
                 subSetsWithoutNumbers.push(symbs)
                 let nums = splitE.join('');
-                subSetsWithoutSymbols.push(parseInt(nums))
+                // subSetsWithoutSymbols.push(parseInt(nums))
+                subSetsWithoutSymbols.push(nums)
             });
 
             // check if Subset Symbols Are Non-Identitical
@@ -93,6 +78,7 @@ export default function subsetValidation(playerSet) {
                 idsOfDifferentSymbolsInSubset.push(subSetId);
             }
 
+            // console.log('TEST 1 :', subSetsWithoutSymbols);
 
             // check whether numbers are all identical
             let isSubsetWithSameNumbers = subSetsWithoutSymbols.every(e => e === subSetsWithoutSymbols[0]);
@@ -112,27 +98,27 @@ export default function subsetValidation(playerSet) {
     }
 
 
-    if (idsOfSequenceInSubset.length === 0) {
-        console.log('there are no subsets which have all numbers are in sequence');
-    } else {
-        console.log('subsets have all numbers are in sequencial order : ', idsOfSequenceInSubset);
-    }
-    if (idsOfSameNumbersInSubset.length === 0) {
-        console.log('there are no same number subsets');
-    } else {
-        console.log('subsets numbers are identical : ', idsOfSameNumbersInSubset)
-    }
+    // if (idsOfSequenceInSubset.length === 0) {
+    //     console.log('there are no subsets which have all numbers are in sequence');
+    // } else {
+    //     console.log('subsets have all numbers are in sequencial order : ', idsOfSequenceInSubset);
+    // }
+    // if (idsOfSameNumbersInSubset.length === 0) {
+    //     console.log('there are no same number subsets');
+    // } else {
+    //     console.log('subsets numbers are identical : ', idsOfSameNumbersInSubset)
+    // }
 
-    if (idsOfSameSymbolsInSubset.length === 0) {
-        console.log('subsets symbols are non-identical')
-    } else {
-        console.log('subsets symbols are identical : ', idsOfSameSymbolsInSubset)
-    }
-    if (idsOfDifferentSymbolsInSubset.length === 0) {
-        console.log('there are no subsets which have all different symbols')
-    } else {
-        console.log('subsets have all different symbols : ', idsOfDifferentSymbolsInSubset)
-    }
+    // if (idsOfSameSymbolsInSubset.length === 0) {
+    //     console.log('subsets symbols are non-identical')
+    // } else {
+    //     console.log('subsets symbols are identical : ', idsOfSameSymbolsInSubset)
+    // }
+    // if (idsOfDifferentSymbolsInSubset.length === 0) {
+    //     console.log('there are no subsets which have all different symbols')
+    // } else {
+    //     console.log('subsets have all different symbols : ', idsOfDifferentSymbolsInSubset)
+    // }
 
 
     let setSeq = [];
@@ -153,7 +139,7 @@ export default function subsetValidation(playerSet) {
                 if (subset === 'tri') {
                     setTri.push(parseInt(bFilter.join()))
                 }
-                console.log('aFilter', aFilter)
+                // console.log('aFilter', aFilter)
             }        // console.log('aFilter', aFilter);
             if (count1 !== count2) return false;
         }
@@ -167,11 +153,11 @@ export default function subsetValidation(playerSet) {
     let bb = idsOfSameSymbolsInSubset;
     // Comparing the arrays
     if (compareArrays(aa, bb, 'seq')) {
-        // console.log('setSeq :', setSeq);
-        console.log("there is a valid sequence.");
+    // console.log('setSeq :', setSeq);
+    console.log("there is a valid sequence.");
     }
     else {
-        console.log("NO SEQUENCE.")
+    console.log("NO SEQUENCE.")
     }
 
     // check trill
@@ -187,6 +173,6 @@ export default function subsetValidation(playerSet) {
 
     let subsetIds = [];
     let validSets = subsetIds.concat(setSeq, setTri)
-    console.log('validSets :', validSets)
+    // console.log('validSets :', validSets)
     return validSets;
 }

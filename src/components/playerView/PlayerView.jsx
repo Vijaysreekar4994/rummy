@@ -46,7 +46,7 @@ export default function PlayerView(props) {
                             {/* card.length !== 0 condition added to not show blank space 
                                 if an array is empty in player set */}
                             {cards.length !== 0 ?
-                                <div style={{ display: 'flex' }}>
+                                <div style={{display:'flex',flexWrap: 'wrap'}}>
                                     {props.playerSet.length !== 13 ?
                                         <>
                                             {cards.map((card, sIndex) => {
