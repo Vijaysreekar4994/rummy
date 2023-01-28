@@ -1,9 +1,11 @@
 
 // let playerSet = [
 //     [
-//         "7♦",
+//         "10♦",
+//         "J♦",
+//         "9♦",
 //         "8♦",
-//         "9♦"
+//         "7♦"
 //     ],
 //     [
 //         "7♦",
@@ -11,13 +13,54 @@
 //         "9♦"
 //     ],
 //     [
-//         "2♦",
-//         "2♠",
-//         "2♥"
-//     ]
+//         "J♥",
+//         "K♥",
+//         "Q♥"
+//     ],
+
 // ]
+let combination = [
+    ["Q", "K", "A"],
+    ["J", "Q", "K", "A"],
+    ["10", "J", "Q", "K", "A"],
+    ["9", "10", "J", "Q", "K", "A"],
+    ["8", "9", "10", "J", "Q", "K", "A"],
+    ["7", "8", "9", "10", "J", "Q", "K", "A"],
+    ["6", "7", "8", "9", "10", "J", "Q", "K", "A"],
+
+    ["J", "Q", "K"],
+    ["10", "J", "Q", "K"],
+    ["9", "10", "J", "Q", "K"],
+    ["8", "9", "10", "J", "Q", "K"],
+    ["7", "8", "9", "10", "J", "Q", "K"],
+    ["6", "7", "8", "9", "10", "J", "Q", "K"],
+
+    ["10", "J", "Q"],
+    ["9", "10", "J", "Q"],
+    ["8", "9", "10", "J", "Q"],
+    ["7", "8", "9", "10", "J", "Q"],
+    ["6", "7", "8", "9", "10", "J", "Q"],
+
+    ["9", "10", "J"],
+    ["8", "9", "10", "J"],
+    ["7", "8", "9", "10", "J"],
+    ["6", "7", "8", "9", "10", "J"],
+    ["5", "6", "7", "8", "9", "10", "J"],
+
+    ["3", "2", "A"],
+    ["3", "2", "A", "4"],
+    ["3", "2", "A", "4", "5"],
+    ["3", "2", "A", "4", "5", "6"],
+    ["3", "2", "A", "4", "5", "6", "7"],
+    ["3", "2", "A", "4", "5", "6", "7", "8"],
+]
+
 
 // subsetValidation(playerSet)
+
+function removeDuplicates(arr) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+}
 
 export default function subsetValidation(playerSet) {
 
@@ -33,11 +76,12 @@ export default function subsetValidation(playerSet) {
 
     // console.log(set)
 
-
+    // following arrays will store valid subset ids 
     let idsOfSameSymbolsInSubset = []; // this array stores the subset ids where all symbols are same
     let idsOfDifferentSymbolsInSubset = []; // this array stores the subset ids where all symbols are different
     let idsOfSameNumbersInSubset = []; // this array stores the subset ids where all numbers are same 
     let idsOfSequenceInSubset = []; // this array stores the subset ids where all numbers are in sequence 
+    let IdsOfValidCombination = []; // this array stores the subset ids where declared combinations are in sequence 
 
 
 
@@ -69,6 +113,33 @@ export default function subsetValidation(playerSet) {
                 // subSetsWithoutSymbols.push(parseInt(nums))
                 subSetsWithoutSymbols.push(nums)
             });
+
+
+            // check if Subset has valid combinations to validate sequence
+            function arrayCompare(_arr1, _arr2) {
+                // console.log('_arr1 :',_arr1);
+                // console.log('_arr2 :',_arr2);
+                if (
+                    !Array.isArray(_arr1)
+                    || !Array.isArray(_arr2)
+                    || _arr1.length !== _arr2.length
+                ) {
+                    return false;
+                }
+                const arr1 = _arr1.concat().sort();
+                const arr2 = _arr2.concat().sort();
+                for (let i = 0; i < arr1.length; i++) {
+                    if (arr1[i] !== arr2[i]) {
+                        return false;
+                    }
+                }
+                if (true) return IdsOfValidCombination.push(subSetId)
+            }
+            combination.forEach(ar => {
+                arrayCompare(subSetsWithoutSymbols, ar);
+            })
+            // console.log('ff :', );
+
 
             // check if Subset Symbols Are Non-Identitical
             let check = subSetsWithoutNumbers.filter((el, i) => subSetsWithoutNumbers.indexOf(el) !== i);
@@ -108,7 +179,6 @@ export default function subsetValidation(playerSet) {
     // } else {
     //     console.log('subsets numbers are identical : ', idsOfSameNumbersInSubset)
     // }
-
     // if (idsOfSameSymbolsInSubset.length === 0) {
     //     console.log('subsets symbols are non-identical')
     // } else {
@@ -119,19 +189,28 @@ export default function subsetValidation(playerSet) {
     // } else {
     //     console.log('subsets have all different symbols : ', idsOfDifferentSymbolsInSubset)
     // }
+    // if (IdsOfValidCombination.length === 0) {
+    //     console.log('there are no subsets which have valid combinations')
+    // } else {
+    //     console.log('subsets with valid combinations : ', removeDuplicates(IdsOfValidCombination))
+    // }
 
 
     let setSeq = [];
     let setTri = [];
-    const compareArrays = (a, b, subset) => {
+    const validateSubsets = (a, b, subset) => {
+        // console.log('a :', a);
+        // console.log('b :', b);
         if (a.length === 0 || b.length === 0) return false;
         const elements = new Set([...a, ...b]);
+        // console.log('elements :', elements);
         for (const x of elements) {
             let count1 = b.filter(e => e === x).length;
             let count2 = b.filter(e => e === x).length;
+            // console.log('count1 :', count1);
+            // console.log('count2 :', count1);
             let aFilter = a.filter(e => e === x);
             let bFilter = b.filter(e => e === x);
-            // (aFilter.length !== 0 && bFilter.length !== 0) && console.log('aFilter', aFilter, 'bFilter', bFilter);
             if (aFilter.length !== 0 && bFilter.length !== 0) {
                 if (subset === 'seq') {
                     setSeq.push(parseInt(aFilter.join()))
@@ -151,19 +230,32 @@ export default function subsetValidation(playerSet) {
     // check sequence
     let aa = idsOfSequenceInSubset;
     let bb = idsOfSameSymbolsInSubset;
-    // Comparing the arrays
-    if (compareArrays(aa, bb, 'seq')) {
-    // console.log('setSeq :', setSeq);
-    console.log("there is a valid sequence.");
+    // console.log(aa);
+    // console.log(bb);
+    if (validateSubsets(aa, bb, 'seq')) {
+        // console.log('setSeq :', setSeq);
+        console.log("there is a valid sequence.");
     }
     else {
-    console.log("NO SEQUENCE.")
+        console.log("NO SEQUENCE.")
+    }
+
+    // check pre-declared combination sequence
+    let aaa = IdsOfValidCombination;
+    let bbb = idsOfSameSymbolsInSubset;
+    if (validateSubsets(aaa, bbb, 'seq')) {
+        console.log("there is a valid combination sequence.");
+    }
+    else {
+        console.log("NO COMBINATION SEQUENCE.")
     }
 
     // check trill
     let aaaa = idsOfDifferentSymbolsInSubset;
     let bbbb = idsOfSameNumbersInSubset;
-    if (compareArrays(aaaa, bbbb, 'tri')) {
+    // console.log(aaaa);
+    // console.log(bbbb);
+    if (validateSubsets(aaaa, bbbb, 'tri')) {
         // console.log('setTri :', setTri);
         console.log("there is a valid trill.");
     }
