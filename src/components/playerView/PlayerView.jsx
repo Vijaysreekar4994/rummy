@@ -35,7 +35,7 @@ export default function PlayerView(props) {
 
     return (
         <>
-            <h2 style={{ marginRight: '25px' }}>{props.playerName}</h2>
+            <h3 style={{ marginRight: '25px' }}>{props.playerName}</h3>
             <div style={props.style}>
                 {props.playerSet.map((cards, id) => {
                     // console.log(cards.length);

@@ -13,6 +13,10 @@
   font-size: 40px;
   color: rgb(255, 255, 255);
 }
+h2{
+  word-spacing: 9999px;
+  line-height: 16px;
+}
 /* 
 .App-header {
   background-color: #282c34;

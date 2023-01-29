@@ -27,8 +27,8 @@ export const Cards = () => {
         margin: '15px'
     };
 
-    const playerContainer ={
-        display:'flex',
+    const playerContainer = {
+        display: 'flex',
         flexWrap: 'wrap',
     };
 
@@ -40,17 +40,17 @@ export const Cards = () => {
 
 
     function generate53cardsSet() {
-        let clubs = [`A${club}`, `J${club}`, `Q${club}`, `K${club}`];
-        let hearts = [`A${heart}`, `J${heart}`, `Q${heart}`, `K${heart}`];
-        let spades = [`A${spade}`, `J${spade}`, `Q${spade}`, `K${spade}`];
-        let diamonds = [`A${diamond}`, `J${diamond}`, `Q${diamond}`, `K${diamond}`];
+        let clubs = [`A ${club}`, `J ${club}`, `Q ${club}`, `K ${club}`];
+        let hearts = [`A ${heart}`, `J ${heart}`, `Q ${heart}`, `K ${heart}`];
+        let spades = [`A ${spade}`, `J ${spade}`, `Q ${spade}`, `K ${spade}`];
+        let diamonds = [`A ${diamond}`, `J ${diamond}`, `Q ${diamond}`, `K ${diamond}`];
         let jocker = ['\u2605']; // add 6 in the end for filled club
 
         for (let i = 2; i <= 10; i++) {
-            clubs.push(i + club);
-            hearts.push(i + heart);
-            spades.push(i + spade);
-            diamonds.push(i + diamond);
+            clubs.push(i + " " + club);
+            hearts.push(i + " " + heart);
+            spades.push(i + " " + spade);
+            diamonds.push(i + " " + diamond);
         }
         let newSet53 = clubs.concat(hearts, spades, diamonds, jocker);
         // console.log(newSet53);
@@ -279,7 +279,7 @@ export const Cards = () => {
                     <PlayerView
                         validSets={playerAValidSets}
                         style={currentPlayer === 'A' ? focusPlayer : playerContainer}
-                        playerName={'PLAYER AAA'}
+                        playerName={'PLAYER A'}
                         currentPlayer={currentPlayer}
                         playerSet={playerASet}
                         selectedCards={selectedCards}
@@ -291,7 +291,7 @@ export const Cards = () => {
                     <PlayerView
                         validSets={playerBValidSets}
                         style={currentPlayer === 'B' ? focusPlayer : playerContainer}
-                        playerName={'PLAYER BBB'}
+                        playerName={'PLAYER B'}
                         currentPlayer={currentPlayer}
                         playerSet={playerBSet}
                         selectedCards={selectedCards}

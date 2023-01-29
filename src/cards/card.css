@@ -5,6 +5,10 @@
     width: 50px;
     background-color: rgb(255, 255, 255);
     margin: 2px;
+    display: flex;
+    /* align-items: left; */
+    /* justify-content: left; */
+    text-align: left;
     /* height: 150px;
     width: 100px; */
     /* padding: 5px; */
